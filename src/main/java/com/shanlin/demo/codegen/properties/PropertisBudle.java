@@ -12,15 +12,27 @@ package com.shanlin.demo.codegen.properties;
 
 
 public class PropertisBudle extends NLS{
+	/**
+	 * 数据库路径
+	 */
 	public static String DB_DRIVER_CLASS;
-	public static String DB_TYPE;
 	public static String DB_URL;
-	public static String DB_PORT;
 	public static String DB_SCHEAME;
 	public static String DB_USERNAME;
 	public static String DB_PASSWORD;
+	public static String DB_TABLE_PREFIX;
+	public static String DB_COLUMN_PREFIX;
+	/**
+	 * freemaker模板路径
+	 */
+	public static String FREEMARKER_TEMPLATE_ENTITY;
+	/**
+	 * 包路径
+	 */
+	public static String PACKAGE_ENTITY;
 	
-    public static void init() {
+	
+    static{
     	NLS.initializeMessages("com.shanlin.demo.codegen.properties.config", PropertisBudle.class);
     }
 }

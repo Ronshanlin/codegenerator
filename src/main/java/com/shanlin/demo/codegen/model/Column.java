@@ -18,7 +18,7 @@ public class Column {
     private int dataType;
     private String dataTypeName;
     private String attrName;
-    private String attrNameFirstUpper;
+    private String attrNameFirstUpper="";
     private String desc;
     
 	public String getColumnName() {

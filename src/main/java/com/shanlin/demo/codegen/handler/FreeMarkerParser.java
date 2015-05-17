@@ -44,7 +44,9 @@ public class FreeMarkerParser {
         try {
             out = new StringWriter();
             
-            reader = new InputStreamReader(FreeMarkerParser.class.getResourceAsStream(templatePath), "utf-8");
+			reader = new InputStreamReader(Thread.currentThread()
+					.getContextClassLoader().getResourceAsStream(templatePath),"utf-8");
+			
             template = new Template(templatePath, reader, configuration);
             template.process(model, out);
             

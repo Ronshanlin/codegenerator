@@ -25,9 +25,7 @@ import com.shanlin.demo.codegen.model.Table;
 import com.shanlin.demo.codegen.properties.PropertisBudle;
 
 public class DataBaseHandler {
-	private static final String DB = "jdbc://" + PropertisBudle.DB_TYPE + "://"
-			+ PropertisBudle.DB_URL + ":" + PropertisBudle.DB_PORT + "/"
-			+ PropertisBudle.DB_SCHEAME;
+	private static final String DB = PropertisBudle.DB_URL;
 	private static Connection connection;
 	
 	static{
@@ -41,20 +39,28 @@ public class DataBaseHandler {
 		}
 	}
 	
-	public static List<Table> getAllModel(){
+	public List<Table> getAllModel(){
 		List<Table> tables = new ArrayList<Table>();
 		
 		try {
 			Map<String, Table>  tableMap = getAllTables();
-			tables = getAllColumnsForTable(tableMap);
+			if (!tableMap.isEmpty()) {
+				tables = getAllColumnsForTable(tableMap);
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally{
+			colse();
 		}
 		
 		return tables;
 	}
 	
-	private static Map<String, Table> getAllTables() throws SQLException{
+	private Map<String, Table> getAllTables() throws SQLException{
+		if (connection == null) {
+			return new HashMap<String, Table>();
+		}
+		
 		DatabaseMetaData metaData = connection.getMetaData();
 		// 获取scheame下的所有表
 		ResultSet tableSet = metaData.getTables(null, PropertisBudle.DB_SCHEAME, "%", new String[]{"TABLE"});
@@ -63,7 +69,7 @@ public class DataBaseHandler {
 		Table table = null;
 		while (tableSet.next()) {
 			table = new Table();
-			table.setTableName(tableSet.getString("TABLE_NAME"));
+			table.setTableName(tableSet.getString("TABLE_NAME").replaceFirst(PropertisBudle.DB_TABLE_PREFIX, ""));
 			
 			tables.put(tableSet.getString("TABLE_NAME"), table);
 		}
@@ -72,7 +78,7 @@ public class DataBaseHandler {
 	}
 	
 	
-	private static List<Table> getAllColumnsForTable(Map<String, Table> tables) throws SQLException{
+	private List<Table> getAllColumnsForTable(Map<String, Table> tables) throws SQLException{
 		DatabaseMetaData metaData = connection.getMetaData();
 		ResultSet rs = metaData.getColumns(null, PropertisBudle.DB_SCHEAME, "%", "%");
 		

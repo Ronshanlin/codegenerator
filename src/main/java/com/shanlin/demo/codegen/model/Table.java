@@ -15,8 +15,8 @@ import java.util.List;
 
 public class Table {
     private String tableName;
-    private String tableClassName;
-    private String classNameFirstLower;
+    private String tableClassName="";
+    private String classNameFirstLower="";
     public List<Column> columns = new ArrayList<Column>();
     
 	public String getTableName() {
