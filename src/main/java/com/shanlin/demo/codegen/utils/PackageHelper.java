@@ -10,7 +10,7 @@ public class PackageHelper {
     
 	public static Map<String, Object> bulidModel(String mpackage, Table table){
 		Map<String, Object> tempMap = new HashMap<String, Object>();
-		tempMap.put("mpackage", convertToPath(mpackage));
+		tempMap.put("mpackage", mpackage);
 		tempMap.put("table", table);
 		
 		return tempMap;

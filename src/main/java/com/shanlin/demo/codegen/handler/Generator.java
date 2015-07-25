@@ -12,6 +12,7 @@ package com.shanlin.demo.codegen.handler;
 
 import java.util.List;
 
+import com.shanlin.demo.codegen.db.DataBaseHandler;
 import com.shanlin.demo.codegen.model.Table;
 import com.shanlin.demo.codegen.properties.PropertisBudle;
 import com.shanlin.demo.codegen.utils.JsonUtil;
@@ -34,6 +35,8 @@ public class Generator {
 			
 			System.out.println(java);
 		}
+		
+		FileHandler fileHandler = new FileHandler();
 	}
 	
 	public static void main(String[] args){

@@ -8,7 +8,7 @@
 //  @ Author : shanlin
 //
 //
-package com.shanlin.demo.codegen.handler;
+package com.shanlin.demo.codegen.db;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
