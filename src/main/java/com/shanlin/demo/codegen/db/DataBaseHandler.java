@@ -19,19 +19,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
+import com.mysql.jdbc.StringUtils;
 import com.shanlin.demo.codegen.model.Column;
 import com.shanlin.demo.codegen.model.Table;
 import com.shanlin.demo.codegen.properties.PropertisBudle;
 
 public class DataBaseHandler {
-	private static final String DB = PropertisBudle.DB_URL;
 	private static Connection connection;
 	
 	static{
 		try {
+		    // 建立数据库连接
 			Class.forName(PropertisBudle.DB_DRIVER_CLASS);
-			connection = DriverManager.getConnection(DB, PropertisBudle.DB_USERNAME, PropertisBudle.DB_PASSWORD);
+			connection = DriverManager.getConnection(PropertisBudle.DB_URL, PropertisBudle.DB_USERNAME, PropertisBudle.DB_PASSWORD);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -40,20 +42,25 @@ public class DataBaseHandler {
 	}
 	
 	public List<Table> getAllModel(){
-		List<Table> tables = new ArrayList<Table>();
-		
 		try {
+		    // 获取表
 			Map<String, Table>  tableMap = getAllTables();
-			if (!tableMap.isEmpty()) {
-				tables = getAllColumnsForTable(tableMap);
+			if (tableMap.isEmpty()) {
+				return new ArrayList<Table>(tableMap.values());
 			}
+			// 设置列信息
+			for (String tableName : tableMap.keySet()) {
+			    this.getAllColumnsForTable(tableMap.get(tableName));
+            }
+			
+			return new ArrayList<Table>(tableMap.values());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally{
 			colse();
 		}
 		
-		return tables;
+		return new ArrayList<Table>();
 	}
 	
 	private Map<String, Table> getAllTables() throws SQLException{
@@ -69,33 +76,65 @@ public class DataBaseHandler {
 		Table table = null;
 		while (tableSet.next()) {
 			table = new Table();
-			table.setTableName(tableSet.getString("TABLE_NAME").replaceFirst(PropertisBudle.DB_TABLE_PREFIX, ""));
+			String tableName = tableSet.getString("TABLE_NAME");
 			
-			tables.put(tableSet.getString("TABLE_NAME"), table);
+			if (this.isNeedGenTable(tableName)) {
+			    table.setTableName(tableName.replaceFirst(PropertisBudle.DB_TABLE_PREFIX, ""));
+			    tables.put(tableName, table);
+            }
 		}
 		
 		return tables;
 	}
 	
+
+	private boolean isNeedGenTable(String tableName){
+	    if (StringUtils.isEmptyOrWhitespaceOnly(PropertisBudle.DB_TABLE_GEN)) {
+            return false;
+        }
+	    
+	    String[] patterns = PropertisBudle.DB_TABLE_GEN.split(",");
+	    
+	    for (String tempPattern : patterns) {
+	        Pattern pattern = Pattern.compile(tempPattern);
+	        boolean isMatche = pattern.matcher(tableName).matches();
+	        if (isMatche) {
+                return true;
+            }
+        }
+	    
+	    return false;
+	}
 	
-	private List<Table> getAllColumnsForTable(Map<String, Table> tables) throws SQLException{
+	private Table getAllColumnsForTable(Table table) throws SQLException{
 		DatabaseMetaData metaData = connection.getMetaData();
-		ResultSet rs = metaData.getColumns(null, PropertisBudle.DB_SCHEAME, "%", "%");
+		ResultSet rs = metaData.getColumns(null, PropertisBudle.DB_SCHEAME, table.getTableName(), "%");
 		
-		Table table = null;
 		Column column = null;
 		while (rs.next()) {
-			table = tables.get(rs.getString("TABLE_NAME"));
+		    // 获取当前行中的table
 			column = new Column();
 			column.setColumnName(rs.getString("COLUMN_NAME"));
 			column.setDataType(rs.getInt("DATA_TYPE"));
 			column.setDataTypeName(rs.getString("TYPE_NAME"));
 			column.setDesc(rs.getString("REMARKS"));
+			column.setAuto(rs.getString("IS_AUTOINCREMENT").toLowerCase().equals("yes"));
 			
 			table.getColumns().add(column);
 		}
 		
-		return new ArrayList<Table>(tables.values());
+		ResultSet pkRs = metaData.getPrimaryKeys(null, PropertisBudle.DB_SCHEAME, "%");
+        while (pkRs.next()) {
+            String columnName = rs.getString("COLUMN_NAME");//列名
+            
+            for (Column columnInfo : table.getColumns()) {
+                if (columnName.equals(columnInfo.getColumnName())) {
+                    columnInfo.setPk(true);
+                }
+            }
+        }
+		
+		return table;
 	}
 	
 	public static void colse() {

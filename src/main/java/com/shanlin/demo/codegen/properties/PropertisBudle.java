@@ -21,7 +21,7 @@ public class PropertisBudle extends NLS{
 	public static String DB_USERNAME;
 	public static String DB_PASSWORD;
 	public static String DB_TABLE_PREFIX;
-	public static String DB_COLUMN_PREFIX;
+	public static String DB_TABLE_GEN;
 	/**
 	 * freemaker模板路径
 	 */

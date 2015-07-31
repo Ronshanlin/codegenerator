@@ -20,6 +20,14 @@ public class Column {
     private String attrName;
     private String attrNameFirstUpper="";
     private String desc;
+    /**
+     * 是否主键
+     */
+    private boolean isPk;
+    /**
+     * 是否是自增长
+     */
+    private boolean isAuto;
     
 	public String getColumnName() {
 		return columnName;
@@ -61,4 +69,16 @@ public class Column {
 	public String getAttrNameFirstUpper() {
 		return attrNameFirstUpper;
 	}
+    public boolean isPk() {
+        return isPk;
+    }
+    public void setPk(boolean isPk) {
+        this.isPk = isPk;
+    }
+    public boolean isAuto() {
+        return isAuto;
+    }
+    public void setAuto(boolean isAuto) {
+        this.isAuto = isAuto;
+    }
 }
