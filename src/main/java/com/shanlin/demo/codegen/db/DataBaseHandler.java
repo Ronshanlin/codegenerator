@@ -70,7 +70,7 @@ public class DataBaseHandler {
 		
 		DatabaseMetaData metaData = connection.getMetaData();
 		// 获取scheame下的所有表
-		ResultSet tableSet = metaData.getTables(null, PropertisBudle.DB_SCHEAME, "%", new String[]{"TABLE"});
+		ResultSet tableSet = metaData.getTables(null, PropertisBudle.DB_SCHEAME, null, new String[]{"TABLE"});
 		
 		Map<String, Table> tables = new HashMap<String, Table>();
 		Table table = null;
@@ -90,7 +90,7 @@ public class DataBaseHandler {
 
 	private boolean isNeedGenTable(String tableName){
 	    if (StringUtils.isEmptyOrWhitespaceOnly(PropertisBudle.DB_TABLE_GEN)) {
-            return false;
+            return true;
         }
 	    
 	    String[] patterns = PropertisBudle.DB_TABLE_GEN.split(",");
@@ -108,7 +108,7 @@ public class DataBaseHandler {
 	
 	private Table getAllColumnsForTable(Table table) throws SQLException{
 		DatabaseMetaData metaData = connection.getMetaData();
-		ResultSet rs = metaData.getColumns(null, PropertisBudle.DB_SCHEAME, table.getTableName(), "%");
+		ResultSet rs = metaData.getColumns(null, PropertisBudle.DB_SCHEAME, table.getTableName(), null);
 		
 		Column column = null;
 		while (rs.next()) {
@@ -123,9 +123,9 @@ public class DataBaseHandler {
 			table.getColumns().add(column);
 		}
 		
-		ResultSet pkRs = metaData.getPrimaryKeys(null, PropertisBudle.DB_SCHEAME, "%");
+		ResultSet pkRs = metaData.getPrimaryKeys(null, PropertisBudle.DB_SCHEAME, table.getTableName());
         while (pkRs.next()) {
-            String columnName = rs.getString("COLUMN_NAME");//列名
+            String columnName = pkRs.getString("COLUMN_NAME");//列名
             
             for (Column columnInfo : table.getColumns()) {
                 if (columnName.equals(columnInfo.getColumnName())) {

@@ -8,6 +8,7 @@ package ${mpackage};
 
 /**
  * @author
+ * @created ${table.createTime}
  */
 public class ${table.tableClassName}{
 <#if table.columns?? && table.columns?size gt 0>
@@ -15,17 +16,17 @@ public class ${table.tableClassName}{
     /**
      * ${column.desc}
      */
-    private String ${column.attrName};
+    private ${column.javaTypeName} ${column.attrName};
     </#list>
 </#if>
 
 <#if table.columns?? && table.columns?size gt 0>
     <#list table.columns as column>
-    public void set${column.attrNameFirstUpper}(String ${column.attrName}){
+    public void set${column.attrNameFirstUpper}(${column.javaTypeName} ${column.attrName}){
         this.${column.attrName} = ${column.attrName};
     };
     
-    public String get${column.attrNameFirstUpper}(){
+    public ${column.javaTypeName} get${column.attrNameFirstUpper}(){
         return this.${column.attrName};
     };
     </#list>

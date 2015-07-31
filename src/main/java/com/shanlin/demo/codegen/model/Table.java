@@ -10,13 +10,16 @@
 //
 package com.shanlin.demo.codegen.model;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Table {
     private String tableName;
     private String tableClassName="";
     private String classNameFirstLower="";
+    private String createTime;
     public List<Column> columns = new ArrayList<Column>();
     
 	public String getTableName() {
@@ -49,4 +52,12 @@ public class Table {
 	public String getClassNameFirstLower() {
 		return classNameFirstLower;
 	}
+
+    public String getCreateTime() {
+        return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
 }

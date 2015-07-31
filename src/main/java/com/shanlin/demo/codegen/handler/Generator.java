@@ -30,8 +30,8 @@ public class Generator {
 		}
 		
 		for (Table table : tables) {
-			String java = FreeMarkerParser.parse(PropertisBudle.FREEMARKER_TEMPLATE_ENTITY,
-					PackageHelper.bulidModel(PropertisBudle.PACKAGE_ENTITY,table));
+			String java = FreeMarkerParser.parse("",
+					PackageHelper.bulidModel(PropertisBudle.PACKAGE_PREFIX,table));
 			
 			System.out.println(java);
 		}

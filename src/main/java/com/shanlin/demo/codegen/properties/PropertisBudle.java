@@ -23,13 +23,9 @@ public class PropertisBudle extends NLS{
 	public static String DB_TABLE_PREFIX;
 	public static String DB_TABLE_GEN;
 	/**
-	 * freemaker模板路径
-	 */
-	public static String FREEMARKER_TEMPLATE_ENTITY;
-	/**
 	 * 包路径
 	 */
-	public static String PACKAGE_ENTITY;
+	public static String PACKAGE_PREFIX;
 	
 	
     static{

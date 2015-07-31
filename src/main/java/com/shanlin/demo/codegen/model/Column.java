@@ -10,6 +10,8 @@
 //
 package com.shanlin.demo.codegen.model;
 
+import com.shanlin.demo.codegen.db.DataTypeMap;
+
 public class Column {
     private String columnName;
     /**
@@ -17,6 +19,7 @@ public class Column {
      */
     private int dataType;
     private String dataTypeName;
+    private String javaTypeName;
     private String attrName;
     private String attrNameFirstUpper="";
     private String desc;
@@ -59,6 +62,7 @@ public class Column {
 	}
 	public void setDataType(int dataType) {
 		this.dataType = dataType;
+		this.setJavaTypeName(DataTypeMap.getType(this.dataType).getFullyQualifiedJavaType().getShortName());
 	}
 	public String getDesc() {
 		return desc;
@@ -80,5 +84,11 @@ public class Column {
     }
     public void setAuto(boolean isAuto) {
         this.isAuto = isAuto;
+    }
+    public String getJavaTypeName() {
+        return javaTypeName;
+    }
+    public void setJavaTypeName(String javaTypeName) {
+        this.javaTypeName = javaTypeName;
     }
 }
