@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqlMap name="class">
+	<sql id="insert">
+		<![CDATA[
+			insert into t_test_class (<#if class.id?exists && class.id!="">\n id \n</#if>,<#if class.class_num?exists && class.class_num!="">\n class_num \n</#if>,<#if class.class_name?exists && class.class_name!="">\n class_name \n</#if>,<#if class.create_time?exists && class.create_time!="">\n create_time \n</#if>) values (:<#if class.id?exists && class.id!="">\n id \n</#if>,:<#if class.class_num?exists && class.class_num!="">\n class_num \n</#if>,:<#if class.class_name?exists && class.class_name!="">\n class_name \n</#if>,:<#if class.create_time?exists && class.create_time!="">\n create_time \n</#if>)
+		]]>
+	</sql>
+</sqlMap>

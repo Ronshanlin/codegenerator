@@ -10,7 +10,7 @@
 //
 package com.shanlin.demo.codegen.model;
 
-import com.shanlin.demo.codegen.db.DataTypeMap;
+import com.shanlin.demo.codegen.utils.DataTypeMap;
 
 public class Column {
     private String columnName;

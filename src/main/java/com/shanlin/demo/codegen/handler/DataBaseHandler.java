@@ -8,7 +8,7 @@
 //  @ Author : shanlin
 //
 //
-package com.shanlin.demo.codegen.db;
+package com.shanlin.demo.codegen.handler;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -79,7 +79,7 @@ public class DataBaseHandler {
 			String tableName = tableSet.getString("TABLE_NAME");
 			
 			if (this.isNeedGenTable(tableName)) {
-			    table.setTableName(tableName.replaceFirst(PropertisBudle.DB_TABLE_PREFIX, ""));
+			    table.setTableName(tableName);
 			    tables.put(tableName, table);
             }
 		}

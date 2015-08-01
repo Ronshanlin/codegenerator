@@ -1,0 +1,70 @@
+/**
+ * desc:...
+ * 
+ * @version 1.0
+ *
+ */
+package com.shanlin.demo.entity;
+
+/**
+ * @author
+ * @created 2015/08/01 11:04:33
+ */
+public class User{
+    /**
+     * id
+     */
+    private Integer id;
+    /**
+     * 
+     */
+    private String name;
+    /**
+     * 
+     */
+    private Short age;
+    /**
+     * 
+     */
+    private String sex;
+    /**
+     * 
+     */
+    private Date createtime;
+
+    public void setId(Integer id){
+        this.id = id;
+    };
+    
+    public Integer getId(){
+        return this.id;
+    };
+    public void setName(String name){
+        this.name = name;
+    };
+    
+    public String getName(){
+        return this.name;
+    };
+    public void setAge(Short age){
+        this.age = age;
+    };
+    
+    public Short getAge(){
+        return this.age;
+    };
+    public void setSex(String sex){
+        this.sex = sex;
+    };
+    
+    public String getSex(){
+        return this.sex;
+    };
+    public void setCreatetime(Date createtime){
+        this.createtime = createtime;
+    };
+    
+    public Date getCreatetime(){
+        return this.createtime;
+    };
+}

@@ -15,11 +15,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.shanlin.demo.codegen.properties.PropertisBudle;
+import com.shanlin.demo.codegen.utils.StringUtils;
+
 public class Table {
     private String tableName;
     private String tableClassName="";
     private String classNameFirstLower="";
-    private String createTime;
+	private String createTime;
     public List<Column> columns = new ArrayList<Column>();
     
 	public String getTableName() {
@@ -28,7 +31,7 @@ public class Table {
 	
 	public void setTableName(String tableName) {
 		this.tableName = tableName.toLowerCase();
-		String[] names = tableName.toLowerCase().split("_");
+		String[] names = tableName.toLowerCase().replaceFirst(PropertisBudle.DB_TABLE_PREFIX, "").split("_");
 		
 		for (int i=0; i<names.length; i++) {
 			this.tableClassName = this.tableClassName+
@@ -36,8 +39,7 @@ public class Table {
 					names[i].substring(1);
 		}
 		
-		this.classNameFirstLower = this.tableClassName.substring(0, 1)
-				.toLowerCase() + this.tableClassName.substring(1);
+		this.classNameFirstLower = StringUtils.toLowwerFirstChar(tableClassName);
 	}
 	public String getTableClassName() {
 		return tableClassName;

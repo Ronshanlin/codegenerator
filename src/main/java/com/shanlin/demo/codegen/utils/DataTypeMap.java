@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.shanlin.demo.codegen.db;
+package com.shanlin.demo.codegen.utils;
 
 import java.sql.Types;
 import java.util.Date;

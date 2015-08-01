@@ -16,7 +16,12 @@ import ${entityPakcage}
  * @author
  */
 @Repository
-public interface ${table.tableClassName}Dao{
+public class ${table.tableClassName}Dao{
+	private static final String NS="${table.classNameFirstLower}.";
+	private static final String QUERYBYPAGE="queryByPage";
+	private static final String INSERT="insert";
+	private static final String UPDATE="update";
+	private static final String DELETE="delete";
 	
 	@Autowired
     private DalClient dalClient;
@@ -25,6 +30,27 @@ public interface ${table.tableClassName}Dao{
      * 分页查询
      */
     public void queryByPage(){
+    	
+    }
+    
+    /**
+     * 插入
+     */    
+    public void insert(${table.tableClassName} ${table.classNameFirstLower}){
+    	
+    }
+    
+    /**
+     * 更新
+     */    
+    public void update(${table.tableClassName} ${table.classNameFirstLower}){
+    	
+    }
+
+	/**
+     * 删除
+     */    
+    public void delete(){
     	
     }
 }

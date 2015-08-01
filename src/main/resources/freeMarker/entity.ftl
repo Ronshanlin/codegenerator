@@ -25,10 +25,10 @@ public class ${table.tableClassName}{
     public void set${column.attrNameFirstUpper}(${column.javaTypeName} ${column.attrName}){
         this.${column.attrName} = ${column.attrName};
     };
-    
     public ${column.javaTypeName} get${column.attrNameFirstUpper}(){
         return this.${column.attrName};
     };
+
     </#list>
 </#if>
 }
