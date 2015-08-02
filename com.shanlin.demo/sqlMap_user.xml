@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<sqlMap name="user">
-	<sql id="insert">
-		<![CDATA[
-			insert into t_test_user (<#if user.name?exists && user.name!="">\n name \n</#if>,<#if user.age?exists && user.age!="">\n age \n</#if>,<#if user.sex?exists && user.sex!="">\n sex \n</#if>,<#if user.createtime?exists && user.createtime!="">\n createtime \n</#if>) values (:<#if user.name?exists && user.name!="">\n name \n</#if>,:<#if user.age?exists && user.age!="">\n age \n</#if>,:<#if user.sex?exists && user.sex!="">\n sex \n</#if>,:<#if user.createtime?exists && user.createtime!="">\n createtime \n</#if>)
-		]]>
-	</sql>
-</sqlMap>
