@@ -11,5 +11,17 @@ public class GeneratorFacecade {
         
         generator = new SqlMapGenerator();
         generator.gen();
+        
+        generator = new ServiceGenerator();
+        generator.gen();
+        
+        generator = new ServiceImplGenerator();
+        generator.gen();
+        
+        generator = new ControllerGenerator();
+        generator.gen();
+        
+        generator = new PageGenerator();
+        generator.gen();
     }
 }

@@ -1,3 +1,4 @@
+<#assign dao="${table.classNameFirstLower}Dao">
 /**
  * desc:...
  * 
@@ -7,51 +8,48 @@
 package ${mpackage};
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
-import com.suning.framework.dal.client.DalClient;
-import ${basePackage}${table.tableClassName};
+import ${basePackage}${table.tableClassName}Dao;
 
 /**
  * @author ${author}
  * @created ${table.createTime}
  */
-@Repository
-public class ${table.tableClassName}Dao{
-	private static final String NS="${table.classNameFirstLower}.";
-	private static final String QUERYBYPAGE="queryByPage";
-	private static final String INSERT="insert";
-	private static final String UPDATE="update";
-	private static final String DELETE="delete";
+@Service("${table.classNameFirstLower}Service")
+public class ${table.tableClassName}ServiceImpl{
 	
 	@Autowired
-    private DalClient dalClient;
+    private ${table.tableClassName}Dao ${dao};
     
     /**
      * 分页查询
      */
+     @Override
     public void queryByPage(){
-    	
+    	${dao}.queryByPage();
     }
     
     /**
      * 插入
      */    
+    @Override
     public void insert(${table.tableClassName} ${table.classNameFirstLower}){
-    	
+    	${dao}.insert(${table.classNameFirstLower});
     }
     
     /**
      * 更新
      */    
+	@Override
     public void update(${table.tableClassName} ${table.classNameFirstLower}){
-    	
+    	${dao}.update(${table.classNameFirstLower});
     }
 
 	/**
      * 删除
-     */    
-    public void delete(){
-    	
+     */ 
+	@Override   
+    public void delete(Long id){
+    	${dao}.delete(id);
     }
 }

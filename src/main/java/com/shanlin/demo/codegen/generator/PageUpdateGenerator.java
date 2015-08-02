@@ -6,7 +6,7 @@ package com.shanlin.demo.codegen.generator;
 import java.util.Map;
 
 import com.shanlin.demo.codegen.handler.FreemarkerModelDefination;
-import com.shanlin.demo.codegen.handler.SqlMapModelDefination;
+import com.shanlin.demo.codegen.handler.PageUpdateModelDefination;
 import com.shanlin.demo.codegen.model.Table;
 import com.shanlin.demo.codegen.utils.StringUtils;
 
@@ -14,27 +14,28 @@ import com.shanlin.demo.codegen.utils.StringUtils;
  * @author shanlin
  *
  */
-public class SqlMapGenerator extends AbstractGenerator{
+public class PageUpdateGenerator extends AbstractGenerator{
 
 	@Override
 	public String getTemplatePath() {
-		return "sqlMap.ftl";
+		return "pageUpdate.ftl";
 	}
 
 	@Override
 	public String getPackagePath() {
-		return "sqlMap";
+		return "page";
 	}
 
 	@Override
 	public String getFileName(String tableName) {
-		return "sqlMap_"+StringUtils.toLowwerFirstChar(tableName).concat(".xml");
+		return StringUtils.toLowwerFirstChar(tableName).concat("update.ftl");
 	}
 
 	@Override
 	public Map<String, Object> getTemplateModel(Table table) {
-		FreemarkerModelDefination defination = new SqlMapModelDefination();
+		FreemarkerModelDefination defination = new PageUpdateModelDefination();
+		
 		return defination.getModel(table);
 	}
-	
+
 }

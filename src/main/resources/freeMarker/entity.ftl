@@ -7,7 +7,7 @@
 package ${mpackage};
 
 /**
- * @author
+ * @author ${author} 
  * @created ${table.createTime}
  */
 public class ${table.tableClassName}{
