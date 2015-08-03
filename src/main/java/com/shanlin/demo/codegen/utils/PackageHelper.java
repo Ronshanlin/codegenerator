@@ -1,5 +1,6 @@
 package com.shanlin.demo.codegen.utils;
 
+import com.mysql.jdbc.StringUtils;
 import com.shanlin.demo.codegen.properties.PropertisBudle;
 
 public class PackageHelper {
@@ -7,9 +8,10 @@ public class PackageHelper {
 	
 	public static String convertToPath(String mpackage){
 		String pk=PropertisBudle.PACKAGE_PREFIX;
+		String dir = getTargetDir();
 		
 		if (mpackage == null || mpackage=="") {
-			return "f:/"+pk.replaceAll("\\.", "/");
+			return dir+pk.replaceAll("\\.", "/");
 		}
 		
 	    if (PropertisBudle.PACKAGE_PREFIX.endsWith(".")) {
@@ -18,6 +20,20 @@ public class PackageHelper {
             pk = pk.concat(".").concat(mpackage);
         }
 		
-		return "f:/"+pk.replaceAll("\\.", "/");
+		return dir+pk.replaceAll("\\.", "/");
+	}
+	
+	private static String getTargetDir(){
+	    String target = PropertisBudle.TARGET_DIR;
+	    
+	    if (StringUtils.isNullOrEmpty(target)) {
+            return System.getenv("HOME").concat("\\");
+        }
+	    
+	    if (target.endsWith("\\") || target.endsWith("/")) {
+            return target;
+        }
+	    
+	    return target.concat("\\");
 	}
 }

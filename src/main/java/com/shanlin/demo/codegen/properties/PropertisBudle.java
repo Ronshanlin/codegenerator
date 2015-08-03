@@ -27,6 +27,8 @@ public class PropertisBudle extends NLS{
 	 */
 	public static String PACKAGE_PREFIX;
 	public static String AUTHOR;
+	// 目标文件夹
+	public static String TARGET_DIR;
 	
     static{
     	NLS.initializeMessages("com.shanlin.demo.codegen.properties.config", PropertisBudle.class);
